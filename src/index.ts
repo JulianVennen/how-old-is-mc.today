@@ -28,7 +28,7 @@ function html(body: string, manifest: PistonMetaVersionManifest, title_version: 
                 </div>
                 <div id="footer">
                     <div class="center-text">
-                        <p>View other versions: ${manifest.getPromotedVersions().map(v => `<a href="/${v.id}">${v.id}</a>`).join(' ')}</p>
+                        <p>${manifest.getPromotedVersions().map(v => `<a href="/${v.id}">${v.id}</a>`).join(' ')}</p>
                         <p>Made by <a href="https://vennen.me">Julian Vennen</a></p>
                     </div>
                 </div>
@@ -38,7 +38,6 @@ function html(body: string, manifest: PistonMetaVersionManifest, title_version: 
 
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-
         const url = new URL(request.url);
         if (url.pathname.startsWith("/public/")) {
             switch (url.pathname.slice("/public".length)) {
@@ -78,9 +77,7 @@ export default {
                     
                     a {
                         color: black;
-                    }
-                    
-                    `), {
+                    }`), {
                         status: 200,
                         headers: {
                             "content-type": "text/css"

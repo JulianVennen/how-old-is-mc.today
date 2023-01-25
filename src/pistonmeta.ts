@@ -24,6 +24,16 @@ export class PistonMetaVersion {
     get relativeReleaseTime(): number {
         return Math.ceil((new Date().getTime() - this.releaseTime.getTime()) / 1000);
     }
+
+    get majorVersion(): number {
+        const versionParts = this.id.split('.');
+
+        if (versionParts.length < 2) {
+            return 0;
+        }
+
+        return parseInt(versionParts[1]);
+    }
 }
 
 interface RawPistonMetaVersionManifest {
@@ -57,20 +67,18 @@ export class PistonMetaVersionManifest {
     }
 
     getPromotedVersions(): PistonMetaVersion[] {
-        const versions = [];
+        const versions = new Set<PistonMetaVersion>();
+        versions.add(<PistonMetaVersion>this.getVersion(this.latest.snapshot));
 
-        const snapshot = this.getVersion(this.latest.snapshot);
-        if (snapshot?.type === "snapshot") {
-            versions.push(snapshot);
+        const releases = this.versions.filter(v => v.type === "release");
+        let latest: PistonMetaVersion|null = null;
+        for (const version of releases) {
+            if (!latest || latest.majorVersion !== version.majorVersion) {
+                versions.add(version);
+            }
+            latest = version;
         }
 
-        versions.push(...this.versions.filter(v => v.type === "release").slice(0, 10));
-
-        const release = this.getVersion("1.0");
-        if (release) {
-            versions.push(release);
-        }
-
-        return versions;
+        return Array.from(versions);
     }
 }
