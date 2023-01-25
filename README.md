@@ -9,11 +9,13 @@ Inspired by [howoldisminecraft1710.today](https://howoldisminecraft1710.today/) 
 ### Development
 Run a development server:
 ```shell
-wrangler dev
+npm install
+npx wrangler dev
 ```
 
 Deploy to production
 ```shell
-wrangler login
-wrangler publish
+npm install
+npx wrangler login
+npx wrangler publish
 ```
