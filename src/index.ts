@@ -12,11 +12,11 @@ export interface Env {
     // MY_R2_BUCKET: R2Bucket;
 }
 
-function html(body: string, manifest: PistonMetaVersionManifest): string {
+function html(body: string, manifest: PistonMetaVersionManifest, title_version: string = ""): string {
     return format(`<!DOCTYPE html>
         <html lang="en">
             <head>
-                <title>How old is Minecraft 1.0 today?</title>
+                <title>How old is Minecraft ${title_version} today?</title>
                 <link rel="icon" href="/public/favicon.svg">
                 <link rel="stylesheet" href="/public/index.css">
             </head>
@@ -95,10 +95,11 @@ export default {
         }
 
         const manifest = await PistonMetaVersionManifest.fetch();
-        const version = manifest.getVersion(url.pathname.slice(1) || "1.0");
+        const versionName = url.pathname.slice(1);
+        const version = manifest.getVersion(versionName || "1.0");
 
         if (!version) {
-            const body = `<h1> The Minecraft version ${url.pathname.slice(1)} does not exist. </h1>`;
+            const body = `<h1> The Minecraft version ${versionName} does not exist. </h1>`;
 
             return new Response(html(body, manifest), {
                 headers: {
@@ -117,7 +118,7 @@ export default {
         const body = `<h1> Minecraft ${version.id} is ${formatTime(version.relativeReleaseTime)} old. </h1>
             <h2> It was released on ${dateFormatter.format(version.releaseTime)}. </h2>`
 
-        return new Response(html(body, manifest), {
+        return new Response(html(body, manifest, versionName), {
             headers: {
                 'content-type': 'text/html;charset=UTF-8',
                 'cache-control': 'max-age=60',
