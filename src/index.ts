@@ -12,11 +12,11 @@ export interface Env {
     // MY_R2_BUCKET: R2Bucket;
 }
 
-function html(body: string, manifest: PistonMetaVersionManifest, title_version: string = ""): string {
+function html(body: string, manifest: PistonMetaVersionManifest, title_version: string | null): string {
     return format(`<!DOCTYPE html>
         <html lang="en">
             <head>
-                <title>How old is Minecraft ${title_version} today?</title>
+                <title>How old is Minecraft ${title_version ?? ""} today?</title>
                 <link rel="icon" href="/public/favicon.svg">
                 <link rel="stylesheet" href="/public/index.css">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
