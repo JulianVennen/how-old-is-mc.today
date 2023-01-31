@@ -39,6 +39,9 @@ function html(body: string, manifest: PistonMetaVersionManifest, title_version: 
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
         const url = new URL(request.url);
+        if (url.pathname === "/") {
+            url.pathname = "/1.0";
+        }
         if (url.pathname.startsWith("/public/")) {
             switch (url.pathname.slice("/public".length)) {
                 case "/favicon.svg":
@@ -92,8 +95,8 @@ export default {
         }
 
         const manifest = await PistonMetaVersionManifest.fetch();
-        const versionName = url.pathname.slice(1);
-        const version = manifest.getVersion(versionName || "1.0");
+        const versionName = url.pathname.match(/^\/([^/]+)\/?$/)?.at?.(1) ?? null;
+        const version = versionName ? manifest.getVersion(versionName) : null;
 
         if (!version) {
             const body = `<h1> The Minecraft version ${versionName} does not exist. </h1>`;
