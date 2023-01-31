@@ -12,7 +12,7 @@ export interface Env {
     // MY_R2_BUCKET: R2Bucket;
 }
 
-function html(body: string, manifest: PistonMetaVersionManifest, title_version: string | null): string {
+function html(body: string, manifest: PistonMetaVersionManifest, title_version: string|null = null): string {
     return format(`<!DOCTYPE html>
         <html lang="en">
             <head>
