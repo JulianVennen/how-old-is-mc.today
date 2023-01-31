@@ -19,6 +19,8 @@ function html(body: string, manifest: PistonMetaVersionManifest, title_version: 
                 <title>How old is Minecraft ${title_version} today?</title>
                 <link rel="icon" href="/public/favicon.svg">
                 <link rel="stylesheet" href="/public/index.css">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <meta name="description" content="View the age of any Minecraft version">
             </head>
             <body>
                 <div class = center>
@@ -28,7 +30,7 @@ function html(body: string, manifest: PistonMetaVersionManifest, title_version: 
                 </div>
                 <div id="footer">
                     <div class="center-text">
-                        <p>${manifest.getPromotedVersions().map(v => `<a href="/${v.id}">${v.id}</a>`).join(' ')}</p>
+                        <p id="links">${manifest.getPromotedVersions().map(v => `<a href="/${v.id}">${v.id}</a>`).join(' ')}</p>
                         <p>Made by <a href="https://vennen.me">Julian Vennen</a></p>
                     </div>
                 </div>
@@ -80,6 +82,12 @@ export default {
                     
                     a {
                         color: black;
+                    }
+                    
+                    @media only screen and (max-width: 600px) {
+                        #links {
+                            font-size: 1.2em;
+                        }
                     }`), {
                         status: 200,
                         headers: {
