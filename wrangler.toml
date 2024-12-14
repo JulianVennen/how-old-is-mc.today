@@ -1,7 +1,0 @@
-name = "how-old-is-mc-today"
-main = "src/index.ts"
-compatibility_date = "2023-01-25"
-
-rules = [
-    { type = "Text", globs = ["public/**"], fallthrough = true }
-]

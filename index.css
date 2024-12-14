@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+                    
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.center-text {
+    display: block;
+    text-align: center;
+}
+
+#footer {
+    position: absolute;
+    bottom: 5px;
+    width: 100vw;
+}
+
+a {
+    color: black;
+}
+
+@media only screen and (max-width: 600px) {
+    #links {
+        font-size: 1.2em;
+    }
+}

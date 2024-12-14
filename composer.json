@@ -1,0 +1,22 @@
+{
+    "name": "julian/how-old-is-mc.today",
+    "description": "A simple page to show how old a Minecraft Version is",
+    "type": "project",
+    "require": {
+        "php": "^8.3",
+        "aternos/curl-psr": "^1.0",
+        "ext-intl": "*"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Julian Vennen",
+            "email": "julian@vennen.me"
+        }
+    ]
+}
