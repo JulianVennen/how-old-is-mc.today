@@ -1,4 +1,4 @@
 RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-f OR
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
 RewriteCond %{REQUEST_URI} !\.(js|css|svg)$
 RewriteRule ^(.*)$ /index.php?path=$1 [NC,L,QSA]
